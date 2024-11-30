@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Tareas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #a1c4fd, #c2e9fb); /* Fondo degradado azul cielo */
+            margin: 0;
+            padding: 20px;
+            color: #333; /* Texto oscuro */
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff; /* Texto blanco */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra sutil */
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px; /* Bordes redondeados */
+            overflow: hidden;
+            animation: slideIn 1s ease-out;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007acc; /* Azul oscuro */
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con transparencia */
+        }
+
+        tr:hover {
+            background-color: #ffebcc; /* Amarillo claro */
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007acc;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #005b99;
+            text-decoration: underline;
+        }
+
+        a[style="color: red;"] {
+            font-weight: bold;
+        }
+
+        a[style="color: red;"]:hover {
+            color: #cc0000;
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #28a745; /* Verde */
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Tareas</h1>
+    <a href="/tareas/nueva" class="btn">Nueva Tarea</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th>Completada</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="tarea : ${tareas}">
+                <td th:text="${tarea.id}"></td>
+                <td th:text="${tarea.titulo}"></td>
+                <td th:text="${tarea.descripcion}"></td>
+                <td th:text="${tarea.completada ? 'Sí' : 'No'}"></td>
+                <td>
+                    <a th:href="@{/tareas/editar/{id}(id=${tarea.id})}">Editar</a>
+                    |
+                    <a th:href="@{/tareas/eliminar/{id}(id=${tarea.id})}" style="color: red;">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
